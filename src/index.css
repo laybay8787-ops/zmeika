@@ -3,20 +3,44 @@
 @layer base {
   * {
     -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
   }
-  
-  body {
-    overflow: hidden;
-    position: fixed;
+
+  html, body {
+    margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+    position: fixed;
     touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: #1a1a2e;
+  }
+
+  /* Prevent pull-to-refresh on mobile */
+  html {
+    overscroll-behavior: none;
   }
 }
 
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.3s ease-out;
+  }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
 

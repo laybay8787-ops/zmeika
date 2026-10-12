@@ -44,13 +44,11 @@ function App() {
     touchStartRef.current = null;
   }, [changeDirection]);
 
-  // Prevent default scroll on touch
+  // Prevent default scroll/zoom on touch (mobile)
   useEffect(() => {
-    const board = gameBoardRef.current;
-    if (!board) return;
     const prevent = (e: TouchEvent) => e.preventDefault();
-    board.addEventListener('touchmove', prevent, { passive: false });
-    return () => board.removeEventListener('touchmove', prevent);
+    document.addEventListener('touchmove', prevent, { passive: false });
+    return () => document.removeEventListener('touchmove', prevent);
   }, []);
 
   const getCellClass = (x: number, y: number) => {
@@ -90,7 +88,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col items-center justify-center p-4 select-none">
+    <div className="h-screen w-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex flex-col items-center justify-center p-4 select-none overflow-hidden" style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))', paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
       {/* Header */}
       <div className="w-full max-w-lg mb-4">
         <h1 className="text-3xl md:text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-300 mb-2">
@@ -118,7 +116,7 @@ function App() {
       <div
         ref={gameBoardRef}
         className="relative bg-gray-800/80 backdrop-blur-sm rounded-2xl border-2 border-gray-600/50 shadow-2xl shadow-purple-900/30 overflow-hidden"
-        style={{ aspectRatio: '1/1', width: 'min(85vw, 480px)' }}
+        style={{ aspectRatio: '1/1', width: 'min(80vw, 70vh, 480px)' }}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
